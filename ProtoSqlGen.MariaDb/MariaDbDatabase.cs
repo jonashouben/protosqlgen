@@ -31,6 +31,8 @@ namespace ProtoSqlGen.MariaDb
 				cmd.Parameters.Add(new MySqlParameter("@table", table));
 				cmd.Parameters.Add(new MySqlParameter("@database", database));
 
+				await EnsureConnected(cancellationToken).ConfigureAwait(false);
+
 				await using (DbDataReader reader = await cmd.ExecuteReaderAsync(cancellationToken).ConfigureAwait(false))
 				{
 					while (await reader.ReadAsync(cancellationToken).ConfigureAwait(false))
