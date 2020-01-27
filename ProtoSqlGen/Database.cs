@@ -71,11 +71,6 @@ namespace ProtoSqlGen
 			}
 		}
 
-		protected async IAsyncEnumerable<T> SingleItemAsyncEnumerable<T>(T item)
-		{
-			yield return await new ValueTask<T>(item).ConfigureAwait(false);
-		}
-
 		protected async ValueTask EnsureConnected(CancellationToken cancellationToken = default)
 		{
 			if (_connection.State == ConnectionState.Open)
