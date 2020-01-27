@@ -4,7 +4,7 @@ namespace ProtoSqlGen
 {
 	public interface IProtoField
 	{
-		string Type { get; }
+		ProtoFieldType Type { get; }
 		string Name { get; }
 		bool IsRepeated { get; }
 

@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ProtoSqlGen
 {
@@ -8,10 +9,10 @@ namespace ProtoSqlGen
 		public string Name { get; }
 		public List<IProtoField> Fields { get; }
 
-		public ProtoMessage(string name)
+		public ProtoMessage(string name, IEnumerable<IProtoField> fields = null)
 		{
 			Name = name;
-			Fields = new List<IProtoField>();
+			Fields = fields?.ToList() ?? new List<IProtoField>();
 		}
 
 		public IEnumerable<string> GetProtoLines()

@@ -9,7 +9,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Linq.Async" Version="4.0.0" />
+    <PackageReference Include="MySqlConnector" Version="0.61.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProtoSqlGen\ProtoSqlGen.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ProtoSqlGen
@@ -8,10 +8,10 @@ namespace ProtoSqlGen
 		public string Package { get; }
 		public List<IProtoMessage> Messages { get; }
 
-		public ProtoFile(string package = null)
+		public ProtoFile(string package = null, IEnumerable<IProtoMessage> messages = null)
 		{
 			Package = package;
-			Messages = new List<IProtoMessage>();
+			Messages = messages?.ToList() ?? new List<IProtoMessage>();
 		}
 
 		public string GetProto()

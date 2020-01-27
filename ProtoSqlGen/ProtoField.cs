@@ -4,13 +4,19 @@ namespace ProtoSqlGen
 {
 	public class ProtoField : IProtoField
 	{
-		public string Type { get; }
+		public ProtoFieldType Type { get; }
 		public string Name { get; }
 		public bool IsRepeated { get; }
 
+		public ProtoField(ProtoFieldType type, string name)
+		{
+			Type = type;
+			Name = name;
+		}
+
 		public IEnumerable<string> GetProtoLines(int fieldNumber)
 		{
-			yield return (IsRepeated ? "repeated " : "") + Type + " " + Name + " = " + fieldNumber + ";";
+			yield return (IsRepeated ? "repeated " : "") + Type.ToProtoType() + " " + Name + " = " + fieldNumber + ";";
 		}
 	}
 }
