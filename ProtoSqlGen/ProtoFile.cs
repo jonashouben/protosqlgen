@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,7 +17,7 @@ namespace ProtoSqlGen
 
 		public string GetProto()
 		{
-			return string.Join("", GetProtoLines());
+			return string.Join(Environment.NewLine, GetProtoLines());
 		}
 
 		public IEnumerable<string> GetProtoLines()

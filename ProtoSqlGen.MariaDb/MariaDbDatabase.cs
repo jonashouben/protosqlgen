@@ -2,8 +2,10 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ProtoSqlGen.MariaDb
 {
@@ -13,23 +15,21 @@ namespace ProtoSqlGen.MariaDb
 		{
 		}
 
-		public override IAsyncEnumerable<string> GetDatabaseNames(CancellationToken cancellationToken)
+		public override async Task<List<string>> GetDatabaseNames(CancellationToken cancellationToken)
 		{
-			return GetStrings("SHOW DATABASES;", null, cancellationToken);
+			return await GetStrings("SHOW DATABASES;", null, cancellationToken).Where(row => row != "information_schema" && row != "mysql" && row != "performance_schema").ToListAsync().ConfigureAwait(false);
 		}
 
-		public override IAsyncEnumerable<string> GetTableNames(string database, CancellationToken cancellationToken)
+		public override async Task<List<string>> GetTableNames(string database, CancellationToken cancellationToken)
 		{
-			return GetStrings("SHOW TABLES FROM @db;", new List<DbParameter> { new MySqlParameter("@db", database) }, cancellationToken);
+			return await GetStrings($"SHOW TABLES FROM `{database}`;", Enumerable.Empty<DbParameter>(), cancellationToken).ToListAsync(cancellationToken).ConfigureAwait(false);
 		}
 
 		public override async IAsyncEnumerable<IProtoField> GetTableFields(string database, string table, [EnumeratorCancellation] CancellationToken cancellationToken)
 		{
 			using (DbCommand cmd = CreateCommand())
 			{
-				cmd.CommandText = "SHOW COLUMNS FROM @table FROM @database;";
-				cmd.Parameters.Add(new MySqlParameter("@table", table));
-				cmd.Parameters.Add(new MySqlParameter("@database", database));
+				cmd.CommandText = $"SHOW COLUMNS FROM `{table}` FROM `{database}`;";
 
 				await EnsureConnected(cancellationToken).ConfigureAwait(false);
 

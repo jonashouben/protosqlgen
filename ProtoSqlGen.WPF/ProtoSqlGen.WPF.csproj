@@ -6,4 +6,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProtoSqlGen.MariaDb\ProtoSqlGen.MariaDb.csproj" />
+  </ItemGroup>
+
 </Project>

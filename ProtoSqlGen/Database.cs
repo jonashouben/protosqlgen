@@ -25,20 +25,20 @@ namespace ProtoSqlGen
 
 		public async IAsyncEnumerable<IProtoFile> GetDatabases([EnumeratorCancellation] CancellationToken cancellationToken = default)
 		{
-			await foreach (string database in GetDatabaseNames(cancellationToken))
+			foreach (string database in await GetDatabaseNames(cancellationToken).ConfigureAwait(false))
 			{
 				yield return new ProtoFile(database, await GetTables(database, cancellationToken).ToListAsync(cancellationToken));
 			}
 		}
-		public abstract IAsyncEnumerable<string> GetDatabaseNames(CancellationToken cancellationToken = default);
+		public abstract Task<List<string>> GetDatabaseNames(CancellationToken cancellationToken = default);
 		public async IAsyncEnumerable<IProtoMessage> GetTables(string database, [EnumeratorCancellation] CancellationToken cancellationToken = default)
 		{
-			await foreach (string table in GetTableNames(database, cancellationToken))
+			foreach (string table in await GetTableNames(database, cancellationToken).ConfigureAwait(false))
 			{
 				yield return await GetTable(database, table, cancellationToken).ConfigureAwait(false);
 			}
 		}
-		public abstract IAsyncEnumerable<string> GetTableNames(string database, CancellationToken cancellationToken = default);
+		public abstract Task<List<string>> GetTableNames(string database, CancellationToken cancellationToken = default);
 		public async Task<IProtoMessage> GetTable(string database, string table, CancellationToken cancellationToken = default)
 		{
 			return new ProtoMessage(table, await GetTableFields(database, table, cancellationToken).ToListAsync(cancellationToken).ConfigureAwait(false));
