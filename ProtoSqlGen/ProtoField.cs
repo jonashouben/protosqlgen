@@ -12,6 +12,7 @@ namespace ProtoSqlGen
 		{
 			Type = type;
 			Name = name;
+			IsRepeated = false;
 		}
 
 		public IEnumerable<string> GetProtoLines(int fieldNumber)
