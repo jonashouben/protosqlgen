@@ -11,20 +11,24 @@ namespace ProtoSqlGen.MariaDb
 {
 	public class MariaDbDatabase : Database
 	{
+		/// <inheritdoc />
 		public MariaDbDatabase(MySqlConnection connection) : base(connection)
 		{
 		}
 
+		/// <inheritdoc />
 		public override async Task<List<string>> GetDatabaseNames(CancellationToken cancellationToken)
 		{
-			return await GetStrings("SHOW DATABASES;", null, cancellationToken).Where(row => row != "information_schema" && row != "mysql" && row != "performance_schema").ToListAsync().ConfigureAwait(false);
+			return await GetStrings("SHOW DATABASES;", null, cancellationToken).Where(row => row != "information_schema" && row != "mysql" && row != "performance_schema").ToListAsync(cancellationToken).ConfigureAwait(false);
 		}
 
+		/// <inheritdoc />
 		public override async Task<List<string>> GetTableNames(string database, CancellationToken cancellationToken)
 		{
 			return await GetStrings($"SHOW TABLES FROM `{database}`;", Enumerable.Empty<DbParameter>(), cancellationToken).ToListAsync(cancellationToken).ConfigureAwait(false);
 		}
 
+		/// <inheritdoc />
 		public override async IAsyncEnumerable<IProtoField> GetTableFields(string database, string table, [EnumeratorCancellation] CancellationToken cancellationToken)
 		{
 			using (DbCommand cmd = CreateCommand())

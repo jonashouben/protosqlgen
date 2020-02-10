@@ -1,12 +1,12 @@
 <Window x:Class="ProtoSqlGen.WPF.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProtoSqlGen.WPF"
-        mc:Ignorable="d"
-        Title="protosqlgen" Height="450" Width="800">
-    <Grid>
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:ProtoSqlGen.WPF"
+		mc:Ignorable="d"
+		Title="protosqlgen" Height="450" Width="800">
+	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition MaxHeight="30" />
 			<RowDefinition />
@@ -21,6 +21,7 @@
 
 			<ComboBox x:Name="dbSelection" Grid.Column="0" VerticalContentAlignment="Center">
 				<ComboBoxItem Content="MariaDB" />
+				<ComboBoxItem Content="SQL Server" />
 			</ComboBox>
 			<TextBox Grid.Column="1" Text="{Binding Path=ConnectionString}" VerticalAlignment="Center"></TextBox>
 			<Button Grid.Column="2" Content="Generieren" Click="Button_Click"></Button>
@@ -28,5 +29,5 @@
 		<ScrollViewer Grid.Row="1">
 			<TextBlock Text="{Binding Path=OutputText}"></TextBlock>
 		</ScrollViewer>
-    </Grid>
+	</Grid>
 </Window>

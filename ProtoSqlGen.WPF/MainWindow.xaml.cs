@@ -1,8 +1,10 @@
+using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using ProtoSqlGen.MariaDb;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using ProtoSqlGen.SqlServer;
 
 namespace ProtoSqlGen.WPF
 {
@@ -44,6 +46,9 @@ namespace ProtoSqlGen.WPF
 			{
 				case "MariaDB":
 					Database = new MariaDbDatabase(new MySqlConnection(ConnectionString));
+					break;
+				case "SQL Server":
+					Database = new SqlServerDatabase(new SqlConnection(ConnectionString));
 					break;
 				default:
 					Database = null;

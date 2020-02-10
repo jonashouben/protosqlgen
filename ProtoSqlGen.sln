@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProtoSqlGen.MariaDb", "Prot
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{A8E32AF8-F12B-49B7-898E-D82D356E9F5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoSqlGen.WPF", "ProtoSqlGen.WPF\ProtoSqlGen.WPF.csproj", "{A04806DD-FF4B-4B5D-8DC6-A037CD5549F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProtoSqlGen.WPF", "ProtoSqlGen.WPF\ProtoSqlGen.WPF.csproj", "{A04806DD-FF4B-4B5D-8DC6-A037CD5549F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoSqlGen.SqlServer", "ProtoSqlGen.SqlServer\ProtoSqlGen.SqlServer.csproj", "{00DB8470-4682-49CC-BB1F-4F4A92565F54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{A04806DD-FF4B-4B5D-8DC6-A037CD5549F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A04806DD-FF4B-4B5D-8DC6-A037CD5549F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A04806DD-FF4B-4B5D-8DC6-A037CD5549F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00DB8470-4682-49CC-BB1F-4F4A92565F54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00DB8470-4682-49CC-BB1F-4F4A92565F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00DB8470-4682-49CC-BB1F-4F4A92565F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00DB8470-4682-49CC-BB1F-4F4A92565F54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A413879F-7D55-461E-9359-48FBEB0AE8F7} = {A8E32AF8-F12B-49B7-898E-D82D356E9F5D}
 		{1DF730AB-ECD6-44ED-A43A-93637947B8A4} = {A8E32AF8-F12B-49B7-898E-D82D356E9F5D}
+		{00DB8470-4682-49CC-BB1F-4F4A92565F54} = {A8E32AF8-F12B-49B7-898E-D82D356E9F5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A7F6BCAA-63E6-49A6-AB7C-85C074CB8FAA}
