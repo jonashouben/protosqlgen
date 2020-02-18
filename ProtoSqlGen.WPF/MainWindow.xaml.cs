@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using ProtoSqlGen.MariaDb;
@@ -14,6 +15,8 @@ namespace ProtoSqlGen.WPF
 	public partial class MainWindow : Window
 	{
 		private static readonly DependencyProperty ConnectionStringProperty = DependencyProperty.Register(nameof(ConnectionString), typeof(string), typeof(MainWindow));
+		private static readonly DependencyProperty DatabasesProperty = DependencyProperty.Register(nameof(Databases), typeof(IReadOnlyCollection<string>), typeof(MainWindow));
+		private static readonly DependencyProperty TablesProperty = DependencyProperty.Register(nameof(Tables), typeof(IReadOnlyCollection<string>), typeof(MainWindow));
 		private static readonly DependencyProperty OutputTextProperty = DependencyProperty.Register(nameof(OutputText), typeof(string), typeof(MainWindow));
 
 		private Database Database;
@@ -22,6 +25,18 @@ namespace ProtoSqlGen.WPF
 		{
 			get => (string)GetValue(ConnectionStringProperty);
 			set => SetValue(ConnectionStringProperty, value);
+		}
+
+		public IReadOnlyCollection<string> Databases
+		{
+			get => (IReadOnlyCollection<string>) GetValue(DatabasesProperty);
+			set => SetValue(DatabasesProperty, value);
+		}
+
+		public IReadOnlyCollection<string> Tables
+		{
+			get => (IReadOnlyCollection<string>) GetValue(TablesProperty);
+			set => SetValue(TablesProperty, value);
 		}
 
 		public string OutputText
@@ -35,12 +50,14 @@ namespace ProtoSqlGen.WPF
 			InitializeComponent();
 			DataContext = this;
 			ConnectionString = "";
+			Databases = new List<string>();
+			Tables = new List<string>();
 			OutputText = "";
 		}
 
 		private async void Button_Click(object sender, RoutedEventArgs e)
 		{
-			string selected = (dbSelection.SelectedItem as ComboBoxItem)?.Content as string;
+			string selected = (connectorSelection.SelectedItem as ComboBoxItem)?.Content as string;
 
 			switch (selected)
 			{
@@ -57,7 +74,23 @@ namespace ProtoSqlGen.WPF
 
 			if (Database != null)
 			{
-				OutputText = (await Database.GetDatabases().FirstOrDefaultAsync())?.GetProto();
+				Databases = (await Database.GetDatabaseNames()).OrderBy(row => row).ToList();
+			}
+		}
+
+		private async void Button_Click_1(object sender, RoutedEventArgs e)
+		{
+			if (Database != null && dbSelection.SelectedItem is string selectedDatabase && tableSelection.SelectedItem is string selectedTable)
+			{
+				OutputText = new ProtoFile(selectedDatabase, new []{ await Database.GetTable(selectedDatabase, selectedTable) }).GetProto();
+			}
+		}
+
+		private async void dbSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (Database != null && dbSelection.SelectedItem is string selected)
+			{
+				Tables = (await Database.GetTableNames(selected)).OrderBy(row => row).ToList();
 			}
 		}
 	}

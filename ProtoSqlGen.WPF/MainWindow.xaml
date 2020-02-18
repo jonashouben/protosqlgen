@@ -9,24 +9,36 @@
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition MaxHeight="30" />
+			<RowDefinition MaxHeight="30" />
 			<RowDefinition />
 		</Grid.RowDefinitions>
 
 		<Grid Grid.Row="0">
 			<Grid.ColumnDefinitions>
+				<ColumnDefinition MaxWidth="100" />
 				<ColumnDefinition MaxWidth="200" />
-				<ColumnDefinition />
 				<ColumnDefinition MaxWidth="100" />
 			</Grid.ColumnDefinitions>
 
-			<ComboBox x:Name="dbSelection" Grid.Column="0" VerticalContentAlignment="Center">
+			<ComboBox x:Name="connectorSelection" Grid.Column="0" VerticalContentAlignment="Center">
 				<ComboBoxItem Content="MariaDB" />
 				<ComboBoxItem Content="SQL Server" />
 			</ComboBox>
-			<TextBox Grid.Column="1" Text="{Binding Path=ConnectionString}" VerticalAlignment="Center"></TextBox>
-			<Button Grid.Column="2" Content="Generieren" Click="Button_Click"></Button>
+			<TextBox Grid.Column="1" Text="{Binding Path=ConnectionString}" VerticalAlignment="Stretch"></TextBox>
+			<Button Grid.Column="2" Content="Verbinden" Click="Button_Click"></Button>
 		</Grid>
-		<ScrollViewer Grid.Row="1">
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition MaxWidth="150" />
+				<ColumnDefinition MaxWidth="150" />
+				<ColumnDefinition MaxWidth="100" />
+			</Grid.ColumnDefinitions>
+
+			<ComboBox x:Name="dbSelection" ItemsSource="{Binding Path=Databases}" SelectionChanged="dbSelection_SelectionChanged" Grid.Column="0" VerticalContentAlignment="Center" />
+			<ComboBox x:Name="tableSelection" ItemsSource="{Binding Path=Tables}" Grid.Column="1" VerticalContentAlignment="Center" />
+			<Button Grid.Column="2" Content="Generieren" Click="Button_Click_1"></Button>
+		</Grid>
+		<ScrollViewer Grid.Row="2">
 			<TextBlock Text="{Binding Path=OutputText}"></TextBlock>
 		</ScrollViewer>
 	</Grid>
