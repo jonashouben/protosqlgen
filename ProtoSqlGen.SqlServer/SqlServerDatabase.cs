@@ -31,7 +31,7 @@ namespace ProtoSqlGen.SqlServer
 		{
 			using (DbCommand cmd = CreateCommand())
 			{
-				cmd.CommandText = "USE [" + database + "]; SELECT cols.name AS col, t.name AS type FROM sys.tables tbl INNER JOIN sys.columns cols ON cols.object_id = tbl.object_id INNER JOIN sys.types t ON t.system_type_id = cols.system_type_id WHERE tbl.name = '" + table + "';";
+				cmd.CommandText = "USE [" + database + "]; SELECT cols.name AS col, t.name AS type FROM sys.tables tbl INNER JOIN sys.columns cols ON cols.object_id = tbl.object_id INNER JOIN sys.types t ON t.system_type_id = cols.system_type_id WHERE tbl.name = '" + table + "' ORDER BY cols.column_id;";
 
 				await EnsureConnected(cancellationToken).ConfigureAwait(false);
 
