@@ -2,6 +2,7 @@
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,7 +28,7 @@ namespace ProtoSqlGen.SqlServer
 		}
 
 		/// <inheritdoc />
-		public override async IAsyncEnumerable<IProtoField> GetTableFields(string database, string table, CancellationToken cancellationToken = default)
+		public override async IAsyncEnumerable<IProtoField> GetTableFields(string database, string table, [EnumeratorCancellation] CancellationToken cancellationToken = default)
 		{
 			using (DbCommand cmd = CreateCommand())
 			{
