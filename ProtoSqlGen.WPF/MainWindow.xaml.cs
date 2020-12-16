@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using MySql.Data.MySqlClient;
 using ProtoSqlGen.MariaDb;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using ProtoSqlGen.SqlServer;
+using MySqlConnector;
 
 namespace ProtoSqlGen.WPF
 {
